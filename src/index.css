@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+/* Paleta del sistema: grises con un tinte verde (identidad del Transmetro) y un verde de marca.
+   Al redefinir la escala "neutral" cambian todas las pantallas sin tocar cada clase. */
+@theme {
+  --color-neutral-50: #f2f7f4;
+  --color-neutral-100: #e8f0eb;
+  --color-neutral-200: #d3dfd8;
+  --color-neutral-300: #b2c3b9;
+  --color-neutral-400: #8ea196;
+  --color-neutral-500: #6c8075;
+  --color-neutral-600: #4f6157;
+  --color-neutral-700: #374539;
+  --color-neutral-800: #26332b;
+  --color-neutral-900: #18221c;
+  --color-neutral-950: #0e1511;
+
+  --color-brand-300: #7fe0a8;
+  --color-brand-400: #3fcf7f;
+  --color-brand-500: #1f9d55;
+  --color-brand-600: #168045;
+  --color-brand-900: #0f3a22;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: #0e1511;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
