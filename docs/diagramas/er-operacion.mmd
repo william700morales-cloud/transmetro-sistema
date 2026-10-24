@@ -1,0 +1,48 @@
+﻿erDiagram
+  direction LR
+  LINEA ||--o{ VIAJE : "programa"
+  BUS ||--o{ VIAJE : "realiza"
+  PILOTO ||--o{ VIAJE : "conduce"
+  VIAJE ||--|{ VISITA : "visita estaciones"
+  ESTACION ||--o{ VISITA : "recibe"
+  ESTACION ||--o{ LECTURA_ESTACION : "mide"
+  LINEA ||--o{ LECTURA_ESTACION : "atiende"
+  LECTURA_ESTACION ||--o| ALERTA : "puede generar"
+  BUS |o--o{ ALERTA : "refuerza"
+  LINEA { int id_linea PK }
+  BUS { int id_bus PK }
+  PILOTO { int id_piloto PK }
+  ESTACION { int id_estacion PK }
+  VIAJE {
+    int id_viaje PK
+    int id_linea FK
+    int id_bus FK
+    int id_piloto FK
+    varchar sentido
+    timestamp fecha_hora_salida
+  }
+  VISITA {
+    bigint id_visita PK
+    int id_viaje FK
+    int id_estacion FK
+    smallint orden
+    timestamp hora_programada
+    int pasajeros_a_bordo
+    numeric ocupacion_pct "calculado"
+    smallint espera_extra_min "calculado"
+  }
+  LECTURA_ESTACION {
+    bigint id_lectura PK
+    int id_estacion FK
+    int id_linea FK
+    timestamp fecha
+    int pasajeros_esperando
+  }
+  ALERTA {
+    bigint id_alerta PK
+    bigint id_lectura FK
+    int pasajeros_esperando
+    int umbral
+    boolean atendida
+    int id_bus_refuerzo FK
+  }

@@ -1,0 +1,18 @@
+---
+config:
+  flowchart:
+    rankSpacing: 26
+    nodeSpacing: 36
+    wrappingWidth: 330
+    padding: 8
+---
+flowchart TD
+  A([Inicio: el operador mide el andén]) --> B[Registrar pasajeros esperando y línea]
+  B --> E{¿Pasajeros mayores o iguales al 150 % de la capacidad del bus?}
+  E -- No --> F([Fin: lectura guardada sin alerta])
+  E -- Sí --> G[Crear la alerta: enviar otro bus]
+  G --> I{¿Hay un bus de la línea o de reserva?}
+  I -- No --> J[Escalar al centro de control]
+  J --> I
+  I -- Sí --> K[Elegir el bus de refuerzo y marcar la alerta como atendida]
+  K --> L([Fin: cambio registrado en la bitácora])

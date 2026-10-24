@@ -1,0 +1,51 @@
+classDiagram
+  direction LR
+  class Bus {
+    +String numeroUnidad
+  }
+  class Linea {
+    +String codigo
+  }
+  class Estacion {
+    +String nombre
+  }
+  class Viaje {
+    +String sentido
+    +DateTime salida
+    +generarVisitas()
+  }
+  class Visita {
+    +int orden
+    +int pasajerosABordo
+    +Decimal ocupacionPct
+    +int esperaExtraMin
+  }
+  class LecturaEstacion {
+    +int pasajerosEsperando
+  }
+  class Alerta {
+    +int umbral
+    +boolean atendida
+    +atender(bus)
+  }
+  class TarjetaAcceso {
+    +String numero
+    +Decimal saldo
+  }
+  class MetodoPago {
+    +String nombre
+  }
+  class Pago {
+    +String tipo
+    +Decimal monto
+  }
+  Viaje "1" *-- "1..*" Visita
+  Bus "1" --> "*" Viaje
+  Linea "1" --> "*" Viaje
+  Estacion "1" --> "*" Visita
+  Estacion "1" --> "*" LecturaEstacion
+  LecturaEstacion "1" --> "0..1" Alerta
+  Alerta "*" --> "0..1" Bus : refuerzo
+  TarjetaAcceso "0..1" --> "*" Pago
+  MetodoPago "1" --> "*" Pago
+  Estacion "1" --> "*" Pago

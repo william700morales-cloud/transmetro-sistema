@@ -1,0 +1,48 @@
+﻿erDiagram
+  direction LR
+  MUNICIPALIDAD ||--o{ PILOTO : "residencia de"
+  PILOTO ||--o{ PILOTO_ESTUDIO : "historial educativo"
+  PILOTO ||--o{ ASIGNACION_PILOTO_BUS : "conduce"
+  BUS ||--o{ ASIGNACION_PILOTO_BUS : "es conducido por"
+  MUNICIPALIDAD {
+    int id_municipalidad PK
+    varchar nombre
+  }
+  BUS {
+    int id_bus PK
+    varchar numero_unidad
+  }
+  PILOTO {
+    int id_piloto PK
+    char dpi UK
+    varchar nombres
+    varchar apellidos
+    date fecha_nacimiento
+    varchar licencia_numero UK
+    varchar direccion_residencia
+    smallint zona
+    int id_municipalidad_residencia FK
+    varchar telefono_movil
+    varchar telefono_residencial
+    varchar correo
+    varchar contacto_emergencia_nombre
+    varchar contacto_emergencia_telefono
+  }
+  PILOTO_ESTUDIO {
+    int id_estudio PK
+    int id_piloto FK
+    varchar nivel
+    varchar titulo
+    varchar institucion
+    smallint anio_inicio
+    smallint anio_fin
+    boolean concluido
+  }
+  ASIGNACION_PILOTO_BUS {
+    int id_asignacion PK
+    int id_bus FK
+    int id_piloto FK
+    varchar turno
+    date fecha_inicio
+    date fecha_fin
+  }

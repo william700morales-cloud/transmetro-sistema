@@ -1,0 +1,7 @@
+﻿stateDiagram-v2
+  [*] --> PLANIFICADA : se crea la línea
+  PLANIFICADA --> ACTIVA : tiene entre N y 2N buses
+  ACTIVA --> SUSPENDIDA : decisión municipal
+  SUSPENDIDA --> ACTIVA : reactivar (se valida la flota)
+  PLANIFICADA --> PLANIFICADA : asignar o quitar buses
+  ACTIVA --> ACTIVA : cambios dentro del rango N a 2N

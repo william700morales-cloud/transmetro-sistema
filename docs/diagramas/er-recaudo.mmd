@@ -1,0 +1,34 @@
+erDiagram
+  direction LR
+  TIPO_TARJETA ||--o{ TARJETA_ACCESO : "define la tarifa"
+  TARJETA_ACCESO |o--o{ PAGO : "recibe o paga"
+  METODO_PAGO ||--o{ PAGO : "se usa en"
+  ESTACION ||--o{ PAGO : "se cobra en"
+  ESTACION { int id_estacion PK }
+  TIPO_TARJETA {
+    int id_tipo_tarjeta PK
+    varchar nombre UK
+    numeric tarifa
+  }
+  TARJETA_ACCESO {
+    int id_tarjeta PK
+    char numero UK
+    int id_tipo_tarjeta FK
+    numeric saldo
+    varchar estado
+  }
+  METODO_PAGO {
+    int id_metodo_pago PK
+    varchar nombre UK
+    boolean usa_saldo_tarjeta
+    boolean permite_recarga
+  }
+  PAGO {
+    bigint id_pago PK
+    int id_tarjeta FK
+    int id_metodo_pago FK
+    int id_estacion FK
+    varchar tipo
+    numeric monto
+    timestamp fecha
+  }

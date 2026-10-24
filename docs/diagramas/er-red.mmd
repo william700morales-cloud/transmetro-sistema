@@ -1,0 +1,45 @@
+﻿erDiagram
+  direction LR
+  MUNICIPALIDAD ||--o{ LINEA : "es titular de"
+  MUNICIPALIDAD ||--o{ ESTACION : "es titular de"
+  LINEA ||--o{ LINEA_ESTACION : "recorre"
+  ESTACION ||--o{ LINEA_ESTACION : "pertenece a"
+  ESTACION ||--o{ TRAMO : "extremo A o B"
+  ESTACION ||--o{ ACCESO : "tiene"
+  MUNICIPALIDAD {
+    int id_municipalidad PK
+    varchar nombre UK
+    varchar departamento
+    varchar telefono
+  }
+  LINEA {
+    int id_linea PK
+    varchar codigo UK
+    varchar nombre
+    int id_municipalidad FK
+    varchar estado
+  }
+  ESTACION {
+    int id_estacion PK
+    varchar codigo UK
+    varchar nombre UK
+    int id_municipalidad FK
+    int capacidad_anden
+    boolean es_terminal
+  }
+  LINEA_ESTACION {
+    int id_linea PK, FK
+    int id_estacion PK, FK
+    smallint orden
+  }
+  TRAMO {
+    int id_estacion_a PK, FK
+    int id_estacion_b PK, FK
+    numeric distancia_km
+  }
+  ACCESO {
+    int id_acceso PK
+    int id_estacion FK
+    smallint numero
+    varchar tipo
+  }

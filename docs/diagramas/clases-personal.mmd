@@ -1,0 +1,46 @@
+classDiagram
+  direction LR
+  class Bus {
+    +String numeroUnidad
+  }
+  class Estacion {
+    +String nombre
+  }
+  class Acceso {
+    +int numero
+  }
+  class Piloto {
+    +String nombres
+    +String direccion
+    +String telefono
+    +String correo
+  }
+  class EstudioPiloto {
+    +String nivel
+    +String titulo
+    +String institucion
+  }
+  class Guardia {
+    +String nombres
+    +String turno
+  }
+  class Computadora {
+    +String hostname
+    +String ipVpn
+  }
+  class Operador {
+    +String usuario
+    +String turno
+  }
+  class EnlaceRed {
+    +String rol
+    +String medio
+    +int anchoBandaMbps
+  }
+  Piloto "1" *-- "*" EstudioPiloto
+  Piloto "*" --> "*" Bus : conduce
+  Guardia "1..*" --> "*" Acceso : vigila
+  Estacion "1" *-- "1..*" Acceso
+  Estacion "1" --> "1" Computadora
+  Computadora "1" --> "1..*" Operador
+  Estacion "1" --> "2" EnlaceRed

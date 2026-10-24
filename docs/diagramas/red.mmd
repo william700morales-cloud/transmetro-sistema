@@ -1,0 +1,32 @@
+﻿flowchart LR
+  subgraph E1[Estación terminal]
+    PC1[PC del operador]
+    R1[Router con VPN]
+    PC1 --- R1
+  end
+  subgraph E2[Estación intermedia]
+    PC2[PC del operador]
+    R2[Router con VPN]
+    PC2 --- R2
+  end
+  subgraph E3[Otras estaciones x 35]
+    PC3[PC del operador]
+    R3[Router con VPN]
+    PC3 --- R3
+  end
+  ISP1{{Internet de banda ancha o fibra<br/>enlace principal}}
+  LTE{{Datos móviles LTE<br/>enlace de respaldo}}
+  subgraph CC[Centro de control en la nube]
+    GW[Puerta de enlace VPN WireGuard]
+    APP[Aplicación web y servicio de datos]
+    DBS[(PostgreSQL)]
+    GW --> APP --> DBS
+  end
+  R1 ==>|principal| ISP1
+  R2 ==>|principal| ISP1
+  R3 ==>|principal| ISP1
+  R1 -.->|respaldo| LTE
+  R2 -.->|respaldo| LTE
+  R3 -.->|respaldo| LTE
+  ISP1 ==>|túnel cifrado| GW
+  LTE -.->|túnel cifrado| GW

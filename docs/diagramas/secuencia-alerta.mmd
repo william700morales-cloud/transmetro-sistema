@@ -1,0 +1,23 @@
+sequenceDiagram
+  autonumber
+  actor O as Operador de estación
+  participant UI as Interfaz web (PC de la estación)
+  participant DB as PostgreSQL
+  participant T as Trigger tg_lectura_alerta
+  O->>UI: Registra 336 pasajeros esperando en El Trébol (línea L12)
+  UI->>DB: INSERT INTO lectura_estacion (...)
+  DB->>T: Después de insertar la lectura
+  T->>DB: Capacidad del bus de L12 = 160, umbral = 160 x 150 % = 240 pasajeros
+  alt Pasajeros mayores o iguales al umbral
+    T->>DB: INSERT INTO alerta (pasajeros, umbral, mensaje)
+    DB-->>UI: Lectura registrada
+    UI->>DB: SELECT alerta de la lectura
+    DB-->>UI: "Enviar otro bus de la línea L12"
+    UI-->>O: Aviso rojo de ALERTA DE CAPACIDAD
+    O->>UI: Elige el bus TM-001 y pulsa "Enviar bus"
+    UI->>DB: SELECT fn_atender_alerta(alerta, bus)
+    DB-->>UI: Alerta marcada como atendida con refuerzo
+  else Pasajeros por debajo del umbral
+    DB-->>UI: Lectura registrada sin alerta
+  end
+

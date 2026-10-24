@@ -1,0 +1,34 @@
+﻿flowchart LR
+  subgraph NAV[Navegador del usuario]
+    direction TB
+    UI[Interfaz React 18 + Tailwind<br/>Líneas, Estación, Reportes, Base de datos]
+    SIM[Módulos de simulación C5<br/>flota, molinete, seguridad, pasajeros, operadores]
+    ACC[Capa de acceso a datos<br/>db.js y useDb]
+    PG[(PGlite: PostgreSQL en WebAssembly<br/>tablas, triggers, vistas, roles)]
+    IDB[(IndexedDB<br/>copia persistente)]
+  end
+  subgraph REPO[Repositorio GitHub]
+    direction TB
+    SQL[database/ 01..07 .sql<br/>estructuras, reglas, vistas, seguridad, datos, reportes, pruebas]
+    DOCS[docs/ diagramas, capturas, PDF, PPT]
+    CI[GitHub Actions<br/>compila y publica]
+  end
+  subgraph NUBE[Nube]
+    WEB[Hosting estático<br/>GitHub Pages]
+    PGM[(PostgreSQL gestionado<br/>fase de producción)]
+  end
+  subgraph EST[Estaciones]
+    PC[PC de trabajo del operador<br/>navegador + VPN]
+  end
+  UI --> ACC
+  SIM --> UI
+  ACC --> PG
+  PG --> IDB
+  SQL -->|se carga al iniciar| PG
+  SQL -.->|mismo script| PGM
+  CI --> WEB
+  REPO --> CI
+  WEB -->|HTTPS| UI
+  PC -->|abre la aplicación| WEB
+  PC -.->|VPN WireGuard| PGM
+

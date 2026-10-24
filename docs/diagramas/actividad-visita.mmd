@@ -1,0 +1,20 @@
+---
+config:
+  flowchart:
+    rankSpacing: 26
+    nodeSpacing: 36
+    wrappingWidth: 330
+    padding: 8
+---
+flowchart TD
+  A([Inicio: el bus llega a la estación]) --> B[Registrar la visita y los pasajeros a bordo]
+  B --> D{¿Pasajeros mayores que la capacidad del bus?}
+  D -- Sí --> E[Rechazar el registro y avisar al operador]
+  D -- No --> G{¿Ocupación menor al 25 %?}
+  G -- Sí --> H[Espera: 1 min normal + 5 min adicionales]
+  G -- No --> I[Espera: 1 min normal]
+  H --> J[Guardar ocupación, espera y salida estimada]
+  I --> J
+  J --> L{¿Es la última estación?}
+  L -- No --> B
+  L -- Sí --> N([Fin: cerrar el viaje])

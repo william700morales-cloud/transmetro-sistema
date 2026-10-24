@@ -1,0 +1,51 @@
+﻿classDiagram
+  direction LR
+  class Municipalidad {
+    +int id
+    +String nombre
+    +String departamento
+  }
+  class Linea {
+    +String codigo
+    +String nombre
+    +Estado estado
+    +distanciaKm() Decimal
+    +busesMinimo() int
+    +busesMaximo() int
+    +activar()
+  }
+  class Estacion {
+    +String nombre
+    +int capacidadAnden
+    +boolean esTerminal
+  }
+  class LineaEstacion {
+    +int orden
+  }
+  class Tramo {
+    +Decimal distanciaKm
+  }
+  class Acceso {
+    +int numero
+    +String tipo
+  }
+  class Parqueo {
+    +String nombre
+    +int capacidadBuses
+  }
+  class Bus {
+    +String numeroUnidad
+    +String placa
+    +int capacidadPasajeros
+    +asignarALinea(linea)
+    +cambiarParqueo(parqueo)
+  }
+  Municipalidad "1" --> "*" Linea : titular
+  Municipalidad "1" --> "*" Estacion : titular
+  Linea "1" *-- "*" LineaEstacion
+  Estacion "1" *-- "*" LineaEstacion
+  Estacion "1" --> "*" Tramo : distancia
+  Estacion "1" *-- "1..*" Acceso
+  Estacion "0..1" --> "*" Parqueo : aloja
+  Parqueo "1" --> "*" Bus : guarda
+  Linea "0..1" --> "*" Bus : asignados

@@ -1,0 +1,39 @@
+---
+config:
+  gantt:
+    useWidth: 1500
+    leftPadding: 20
+    rightPadding: 20
+    topPadding: 55
+    barHeight: 26
+    barGap: 10
+    fontSize: 13
+    sectionFontSize: 14
+    gridLineStartPadding: 30
+---
+gantt
+  title Plan del proyecto: 2 de noviembre de 2026 a 12 de marzo de 2027
+  dateFormat YYYY-MM-DD
+  axisFormat %d/%m
+  tickInterval 2week
+  todayMarker off
+  section 1. Inicio
+  Reunión de arranque y carta de aceptación    :done, ini1, 2026-11-02, 5d
+  Levantamiento con municipalidades            :ini2, after ini1, 10d
+  section 2. Análisis y diseño
+  Análisis de requerimientos y reglas          :an1, 2026-11-09, 14d
+  Modelo entidad-relación y script SQL         :an2, after an1, 10d
+  Diagramas UML y arquitectura                 :an3, 2026-11-23, 14d
+  Conectividad entre estaciones                :an4, after an3, 7d
+  section 3. Desarrollo
+  Iteración 1 - líneas, estaciones y accesos   :d1, 2026-12-07, 14d
+  Iteración 2 - buses, parqueos y pilotos      :d2, after d1, 14d
+  Iteración 3 - alertas, esperas y recaudo     :d3, after d2, 14d
+  Iteración 4 - reportes y seguridad           :d4, after d3, 14d
+  section 4. Pruebas
+  Pruebas funcionales y de reglas              :t1, 2027-01-18, 14d
+  Pruebas de rendimiento y seguridad           :t2, after t1, 7d
+  section 5. Implantación
+  Capacitación de 16 horas a operadores        :c1, 2027-02-08, 10d
+  Piloto en la Línea 12                        :c2, 2027-02-15, 14d
+  Aceptación y entrega final                   :milestone, c3, 2027-03-12, 0d

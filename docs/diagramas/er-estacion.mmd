@@ -1,0 +1,55 @@
+erDiagram
+  direction LR
+  GUARDIA ||--o{ ASIGNACION_GUARDIA : "cubre"
+  ACCESO ||--|{ ASIGNACION_GUARDIA : "vigilado por (min. 1)"
+  ESTACION ||--o{ ACCESO : "tiene"
+  ESTACION ||--|| COMPUTADORA : "una PC de trabajo"
+  COMPUTADORA ||--|{ OPERADOR : "controlada por"
+  ESTACION ||--|{ ENLACE_RED : "se conecta por"
+  ESTACION {
+    int id_estacion PK
+    varchar nombre UK
+  }
+  ACCESO {
+    int id_acceso PK
+    int id_estacion FK
+    smallint numero
+  }
+  GUARDIA {
+    int id_guardia PK
+    char dpi UK
+    varchar nombres
+    varchar apellidos
+    varchar telefono
+  }
+  ASIGNACION_GUARDIA {
+    int id_asignacion PK
+    int id_guardia FK
+    int id_acceso FK
+    varchar turno
+    date fecha_inicio
+    date fecha_fin
+  }
+  COMPUTADORA {
+    int id_computadora PK
+    int id_estacion FK, UK
+    varchar hostname UK
+    inet ip_vpn UK
+    varchar estado
+  }
+  OPERADOR {
+    int id_operador PK
+    char dpi UK
+    varchar nombres
+    varchar usuario UK
+    varchar turno
+    int id_computadora FK
+  }
+  ENLACE_RED {
+    int id_enlace PK
+    int id_estacion FK
+    varchar rol
+    varchar medio
+    int ancho_banda_mbps
+    varchar protocolo_vpn
+  }

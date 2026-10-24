@@ -1,0 +1,39 @@
+erDiagram
+  direction LR
+  LINEA |o--o{ BUS : "tiene asignados"
+  PARQUEO ||--o{ BUS : "guarda"
+  ESTACION |o--o{ PARQUEO : "aloja"
+  BUS ||--o{ BUS_PARQUEO_HISTORIAL : "registra"
+  PARQUEO ||--o{ BUS_PARQUEO_HISTORIAL : "recibe"
+  LINEA {
+    int id_linea PK
+    varchar codigo UK
+  }
+  ESTACION {
+    int id_estacion PK
+    varchar nombre UK
+  }
+  PARQUEO {
+    int id_parqueo PK
+    varchar codigo UK
+    varchar nombre
+    int capacidad_buses
+    int id_estacion FK "opcional"
+  }
+  BUS {
+    int id_bus PK
+    varchar numero_unidad UK
+    varchar placa UK
+    varchar tipo
+    int capacidad_pasajeros
+    varchar estado
+    int id_linea FK "opcional"
+    int id_parqueo FK "obligatorio"
+  }
+  BUS_PARQUEO_HISTORIAL {
+    bigint id_historial PK
+    int id_bus FK
+    int id_parqueo FK
+    timestamp desde
+    timestamp hasta
+  }

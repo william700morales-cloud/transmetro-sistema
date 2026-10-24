@@ -1,0 +1,20 @@
+﻿sequenceDiagram
+  autonumber
+  actor P as Planificador
+  participant UI as Interfaz web
+  participant DB as PostgreSQL
+  participant T as Trigger ct_bus_flota
+  participant B as Bitácora
+  P->>UI: Elige el bus TM-059 y pulsa "Asignar a la línea L12"
+  UI->>DB: UPDATE bus SET id_linea = 1 WHERE id_bus = 59
+  DB->>B: Registra el cambio (trigger de auditoría)
+  DB->>T: Al confirmar, valida la línea L12
+  T->>DB: ¿Buses entre N y 2N? (27 + 1 = 28 de 15 a 30)
+  alt La flota queda dentro del rango
+    DB-->>UI: Cambio confirmado
+    UI-->>P: "El bus TM-059 quedó asignado a la línea L12"
+  else Se supera el máximo (31 buses)
+    T-->>DB: RAISE EXCEPTION "máximo permitido es 30"
+    DB-->>UI: Error y reversión del cambio
+    UI-->>P: "La base de datos rechazó el cambio: Línea L12 tiene 31 buses..."
+  end
